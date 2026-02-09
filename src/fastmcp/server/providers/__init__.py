@@ -49,6 +49,7 @@ __all__ = [
     "FastMCPProvider",
     "FileSystemProvider",
     "LocalProvider",
+    "NeMoAgentToolkitProvider",
     "OpenAPIProvider",
     "Provider",
     "ProxyProvider",
@@ -68,4 +69,16 @@ def __getattr__(name: str):
         from fastmcp.server.providers.openapi import OpenAPIProvider
 
         return OpenAPIProvider
+    if name == "NeMoAgentToolkitProvider":
+        try:
+            from fastmcp.server.providers.nvidia_nat_provider import (
+                NeMoAgentToolkitProvider,
+            )
+        except ImportError as exc:
+            raise AttributeError(
+                "NeMoAgentToolkitProvider requires optional dependency "
+                "`fastmcp[nvidia-nat]`."
+            ) from exc
+
+        return NeMoAgentToolkitProvider
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
