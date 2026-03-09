@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+
 """Provider for NVIDIA NeMo Agent Toolkit workflows."""
 
 from __future__ import annotations
@@ -111,7 +114,9 @@ class NeMoAgentToolkitProvider(LocalProvider):
                 function_name, session_manager, input_schema
             )
             self._ensure_wrapper_annotations(wrapper)
-            description = get_function_description(target_function or session_manager.workflow)
+            description = get_function_description(
+                target_function or session_manager.workflow
+            )
             tool = FunctionTool.from_function(
                 wrapper,
                 name=function_name,
